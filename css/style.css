@@ -5,6 +5,9 @@ body {
     padding: 0;
     background-color: #f4f4f4;
     color: #333;
+    display: flex; /* Enable flexbox */
+    flex-direction: column; /* Stack children vertically */
+    min-height: 100vh; /* Ensure body takes at least full viewport height */
 }
 
 .container {
@@ -77,11 +80,12 @@ header nav ul li a:hover {
 
 /* Main Content Styling */
 main {
-    padding: 20px 0;
+    padding: 40px 0; /* Increased padding */
     background-color: white;
     margin-top: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex-grow: 1; /* Allow main content to grow and push footer down */
 }
 
 main h1 {
@@ -179,7 +183,7 @@ footer {
     color: white;
     text-align: center;
     padding: 15px 0;
-    margin-top: 20px;
+    margin-top: 40px; /* Increased margin-top */
 }
 
 /* Responsive Design */
