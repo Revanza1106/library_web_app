@@ -11,6 +11,23 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('transactions', JSON.stringify(transactions));
     };
 
+    // Function to update header with login info
+    const updateHeaderForLogin = () => {
+        const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+        const loggedInUser = sessionStorage.getItem('loggedInUser');
+        const userInfoDisplay = document.getElementById('user-info-display');
+
+        if (isLoggedIn === 'true' && loggedInUser && userInfoDisplay) {
+            userInfoDisplay.innerHTML = `
+                <img src="images/logo.svg" alt="User Logo" class="user-logo">
+                <span>${loggedInUser}</span>
+            `;
+            userInfoDisplay.style.display = 'flex'; // Show the user info
+        } else if (userInfoDisplay) {
+            userInfoDisplay.style.display = 'none'; // Hide if not logged in
+        }
+    };
+
     // Transaction Form Validation
     const transactionForm = document.getElementById('transactionForm');
     const formMessage = document.getElementById('formMessage');
@@ -61,17 +78,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
-            // Simple client-side validation (for demonstration)
-            if (username === '' || password === '') {
-                loginMessage.textContent = 'Username dan Password harus diisi!';
-                loginMessage.className = 'message error';
-                loginMessage.style.display = 'block';
-            } else if (username === 'admin' && password === 'admin123') { // Example credentials
+            // Hardcoded credentials for demonstration
+            if (username === 'admin' && password === '123') {
+                sessionStorage.setItem('isLoggedIn', 'true');
+                sessionStorage.setItem('loggedInUser', 'admin');
                 loginMessage.textContent = 'Login berhasil! Selamat datang, admin.';
                 loginMessage.className = 'message success';
                 loginMessage.style.display = 'block';
-                // Redirect or perform other actions on successful login
-                // window.location.href = 'index.html'; // Example redirect
+                window.location.href = 'index.html'; // Redirect to home page
             } else {
                 loginMessage.textContent = 'Username atau Password salah!';
                 loginMessage.className = 'message error';
@@ -108,4 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (window.location.pathname.includes('daftar_transaksi.html')) {
         loadTransactions();
     }
+
+    // Call updateHeaderForLogin on all pages
+    updateHeaderForLogin();
 });
